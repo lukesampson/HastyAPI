@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace HastyAPI {
 	public class APIRequest {
@@ -12,6 +13,7 @@ namespace HastyAPI {
 		private string _data;
 		private NetworkCredential _credentials;
 		private Encoding _encoding = Encoding.UTF8;
+		private string _contentType;
 
 		public APIRequest(string url) {
 			_url = url;
@@ -22,21 +24,29 @@ namespace HastyAPI {
 			return this;
 		}
 
-		public APIRequest WithVars(object vars) {
+		public APIRequest WithForm(object vars) {
 			string data = "";
-			var vardic = vars.AsDictionary();
-			foreach(var pair in vardic) {
+			var dic = vars.AsDictionary();
+			foreach(var pair in dic) {
 				if(data.Length > 0) data += "&";
 				var value = pair.Value;
 				if(value == null) value = "";
 				data += HttpUtility.UrlEncode(pair.Key) + "=" + HttpUtility.UrlEncode(value);
 			}
 			_data = data;
+			_contentType = "application/x-www-form-urlencoded";
 			return this;
 		}
 
-		public APIRequest WithData(string data) {
+		public APIRequest WithJSON(object json) {
+			_data = new JavaScriptSerializer().Serialize(json);
+			_contentType = "application/json";
+			return this;
+		}
+
+		public APIRequest WithData(string data, string contentType = null) {
 			_data = data;
+			_contentType = contentType;
 			return this;
 		}
 
@@ -70,11 +80,13 @@ namespace HastyAPI {
 					req = (HttpWebRequest)WebRequest.Create(_url + "?" + _data);
 					req.WithCredentials(_credentials).WithHeaders(_headers).Method = method;
 
+					// note: don't send content type for get
+
 				} else {
 					req = (HttpWebRequest)WebRequest.Create(_url);
 					req.WithCredentials(_credentials).WithHeaders(_headers).Method = method;
 
-					req.ContentType = "application/x-www-form-urlencoded";
+					req.ContentType = _contentType;
 
 					var dataBytes = _encoding.GetBytes(_data);
 					req.ContentLength = dataBytes.Length;

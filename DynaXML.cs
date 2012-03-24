@@ -8,6 +8,10 @@ using System.Dynamic;
 namespace HastyAPI {
 	public class DynaXML {
 
+		public static dynamic Parse(string text) {
+			return Parse(XDocument.Parse(text));
+		}
+
 		public static dynamic Parse(XDocument xml) {
 			var result = new ExpandoObject() as IDictionary<string, object>;
 

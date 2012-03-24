@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="DynaJSONFacts.cs" />
     <Compile Include="DynaXMLFacts.cs" />
+    <Compile Include="Examples.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

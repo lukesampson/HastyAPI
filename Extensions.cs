@@ -15,10 +15,7 @@ namespace HastyAPI {
 			var responseText = sr.ReadToEnd();
 			sr.Close();
 
-			return new APIResponse {
-				StatusCode = (int)hwr.StatusCode,
-				Text = responseText
-			};
+			return new APIResponse(hwr.Headers, (int)hwr.StatusCode, hwr.ContentType, responseText);
 		}
 
 		public static HttpWebRequest WithCredentials(this HttpWebRequest request, NetworkCredential credentials) {
