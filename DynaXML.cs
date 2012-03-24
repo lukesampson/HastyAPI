@@ -20,7 +20,7 @@ namespace HastyAPI {
 			return result;
 		}
 
-		public static void AddElement(XElement el, IDictionary<string, object> parent) {
+		private static void AddElement(XElement el, IDictionary<string, object> parent) {
 			var name = el.Name.LocalName;
 
 			// check for multiple elements with the same name and convert to list
@@ -76,7 +76,7 @@ namespace HastyAPI {
 			return new string(' ', 4 * nestlevel);;
 		}
 
-		public static string DynamicToString(IDictionary<string, object> obj, int nestlevel = 0) {
+		private static string DynamicToString(IDictionary<string, object> obj, int nestlevel = 0) {
 			var indent = Indent(nestlevel);
 
 			var str = "";
