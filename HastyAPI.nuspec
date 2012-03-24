@@ -10,13 +10,9 @@
     <projectUrl>http://github.com/lukesampson/HastyAPI</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<summary>HastyAPI makes it easy to write code to interact with web APIs.</summary>
-    <description>
-			HastyAPI makes it easy to write code to interact with web APIs.
+    <description>HastyAPI makes it easy to write code to interact with web APIs.
 			
-			It'll save you writing lots of tedious boilerplate code to make HTTP web requests,
-			and process XML and JSON. By providing high-level, dynamic functions, it lets you
-			concentrate on the web API itself.
-		</description>
+It'll save you writing lots of tedious boilerplate code to make HTTP web requests, and process XML and JSON. By providing high-level, dynamic functions, it lets you concentrate on the web API itself.</description>
     <releaseNotes>Initial release.</releaseNotes>
     <copyright>Copyright Luke Sampson 2012</copyright>
     <tags>web api</tags>
