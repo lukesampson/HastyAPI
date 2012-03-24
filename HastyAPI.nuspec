@@ -6,12 +6,18 @@
     <title>$title$</title>
     <authors>Luke Sampson</authors>
     <owners>Luke Sampson</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <licenseUrl>https://github.com/lukesampson/HastyAPI/blob/master/license</licenseUrl>
     <projectUrl>http://github.com/lukesampson/HastyAPI</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+		<summary>HastyAPI makes it easy to write code to interact with web APIs.</summary>
+    <description>
+			HastyAPI makes it easy to write code to interact with web APIs.
+			
+			It'll save you writing lots of tedious boilerplate code to make HTTP web requests,
+			and process XML and JSON. By providing high-level, dynamic functions, it lets you
+			concentrate on the web API itself.
+		</description>
+    <releaseNotes>Initial release.</releaseNotes>
     <copyright>Copyright Luke Sampson 2012</copyright>
     <tags>web api</tags>
   </metadata>
