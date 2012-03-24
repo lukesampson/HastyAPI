@@ -1,0 +1,49 @@
+﻿<response xmlns="http://www.freshbooks.com/api/" status="ok">
+  <client>
+    <client_id>12</client_id>
+    <first_name>Jane</first_name>
+    <last_name>Austin</last_name>
+    <email>jane.austin@cdu.edu.au</email>
+    <username>janeaustin</username>
+    <home_phone></home_phone>
+    <mobile></mobile>
+    <contacts />
+    <organization>Charles Darwin University</organization>
+    <work_phone>08 8946 5555</work_phone>
+    <fax></fax>
+    <vat_name>ABN</vat_name>
+    <vat_number></vat_number>
+    <p_street1>Student Administration</p_street1>
+    <p_street2>Charles Darwin University</p_street2>
+    <p_city>Darwin</p_city>
+    <p_state>Northern Territory</p_state>
+    <p_country>Australia</p_country>
+    <p_code>0909</p_code>
+    <s_street1></s_street1>
+    <s_street2></s_street2>
+    <s_city></s_city>
+    <s_state></s_state>
+    <s_country></s_country>
+    <s_code></s_code>
+    <notes></notes>
+    <language>en</language>
+    <currency_code>AUD</currency_code>
+    <credit currency="AUD" deprecated="true">0</credit>
+    <url deprecated="true">https://sample.freshbooks.com/view/37Meha2NXCFhrVtc</url>
+    <auth_url deprecated="true">https://sample.freshbooks.com/clients/12</auth_url>
+    <folder>active</folder>
+    <updated>2012-03-12 02:41:16</updated>
+    <credits>
+      <credit currency="AUD">0</credit>
+      <credit currency="USD">120.25</credit>
+    </credits>
+    <links>
+      <client_view>https://sample.freshbooks.com/view/37Meha2NXCFhrVtc</client_view>
+      <view>https://sample.freshbooks.com/clients/12</view>
+      <statement>https://sample.freshbooks.com/view/3z7ubiM2KSWUq2Wa</statement>
+    </links>
+    <notifications>
+      <late_payment_reminders>1</late_payment_reminders>
+    </notifications>
+  </client>
+</response>

@@ -1,0 +1,6 @@
+*.suo
+*.user
+*.nupkg
+\bin
+\obj
+\packages

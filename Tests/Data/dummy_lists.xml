@@ -1,0 +1,17 @@
+﻿<lists>
+  <simple>
+    <item>one</item>
+    <item>two</item>
+  </simple>
+  <complex>
+    <item type="complex">
+      <test>one</test>
+    </item>
+    <item type="complex">
+      <test>two</test>
+    </item>
+    <item type="very_complex">
+      <test>three</test>
+    </item>
+  </complex>
+</lists>

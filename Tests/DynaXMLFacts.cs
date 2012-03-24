@@ -5,75 +5,77 @@ using System.Text;
 using System.IO;
 using System.Xml.Linq;
 using HastyAPI;
+using Xunit;
 
 namespace Tests {
 	public class DynaXMLFacts {
+
 		public static XDocument GetXML(string name) {
-			var path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\Tests\Data\" + name + ".xml");
+			var path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\Data\" + name + ".xml");
 			return XDocument.Load(path);
 		}
 
-		//[Fact]
+		[Fact]
 		public void Can_Get_Root() {
 			var o = GetXML("client_get_response").ToDynamic();
-			//Assert.NotNull(o.response);
+			Assert.NotNull(o.response);
 		}
 
-		//[Fact]
+		[Fact]
 		public void Can_Get_One_Child() {
 			var o = GetXML("client_get_response").ToDynamic();
-			//Assert.NotNull(o.response.client);
+			Assert.NotNull(o.response.client);
 		}
 
-		//[Fact]
+		[Fact]
 		public void Can_Get_Content_Value() {
 			var o = GetXML("client_get_response").ToDynamic();
-			//Assert.Equal("12", o.response.client.client_id);
+			Assert.Equal("12", o.response.client.client_id);
 		}
 
-		//[Fact]
+		[Fact]
 		public void Can_Get_Attribute_Value_As_Well_As_Content_Value() {
 			var o = GetXML("client_get_response").ToDynamic();
 
-			//Assert.Equal("AUD", o.response.client.credit.currency);
-			//Assert.Equal("true", o.response.client.credit.deprecated);
-			//Assert.Equal("0", o.response.client.credit.value);
+			Assert.Equal("AUD", o.response.client.credit.currency);
+			Assert.Equal("true", o.response.client.credit.deprecated);
+			Assert.Equal("0", o.response.client.credit.text);
 		}
 
-		//[Fact]
+		[Fact]
 		public void Simple_Element_Lists_Work() {
 			var o = GetXML("dummy_lists").ToDynamic();
 
-			//Assert.Equal(2, o.lists.simple.item.Count);
-			//Assert.Throws<Microsoft.CSharp.RuntimeBinder.RuntimeBinderException>(() => o.lists.simple.value);
-			//Assert.Equal("one", o.lists.simple.item[0]);
-			//Assert.Equal("two", o.lists.simple.item[1]);
+			Assert.Equal(2, o.lists.simple.item.Count);
+			Assert.Throws<Microsoft.CSharp.RuntimeBinder.RuntimeBinderException>(() => o.lists.simple.text);
+			Assert.Equal("one", o.lists.simple.item[0]);
+			Assert.Equal("two", o.lists.simple.item[1]);
 		}
 
-		//[Fact]
+		[Fact]
 		public void Complex_Element_Lists_Work() {
 			var o = GetXML("dummy_lists").ToDynamic();
 
-			//Assert.Equal(3, o.lists.complex.item.Count);
-			//Assert.Equal("one", o.lists.complex.item[0].text);
-			//Assert.Equal("complex", o.lists.complex.item[1].type);
-			//Assert.Equal("very_complex", o.lists.complex.item[2].type);
+			Assert.Equal(3, o.lists.complex.item.Count);
+			Assert.Equal("one", o.lists.complex.item[0].test);
+			Assert.Equal("complex", o.lists.complex.item[1].type);
+			Assert.Equal("very_complex", o.lists.complex.item[2].type);
 		}
 
-		//[Fact]
+		[Fact]
 		public void Can_Call_As_List_On_List() {
 			var o = GetXML("dummy_lists").ToDynamic();
 
 			var list = Dynamic.AsList(o.lists.simple.item);
-			//Assert.Equal(2, list.Count);
+			Assert.Equal(2, list.Count);
 		}
 
-		//[Fact]
+		[Fact]
 		public void Can_Call_As_List_On_A_Non_List() {
 			var o = GetXML("dummy_lists").ToDynamic();
 
 			var list = Dynamic.AsList(o.lists.simple);
-			//Assert.Equal(1, list.Count);
+			Assert.Equal(1, list.Count);
 		}
 
 		public class Serialization {
