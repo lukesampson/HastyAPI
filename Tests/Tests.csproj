@@ -48,6 +48,7 @@
     <Compile Include="Examples.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="URLFacts.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HastyAPI.csproj">
