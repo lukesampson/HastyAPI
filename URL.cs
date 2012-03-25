@@ -30,9 +30,7 @@ namespace HastyAPI {
 		}
 
 		public static string operator +(URL basePath, string relPath) {
-			Uri combined;
-			if(Uri.TryCreate(new Uri(basePath._value), relPath, out combined)) return new URL(combined.ToString());
-			throw new ArgumentException("Couldn't combine base path \"" + basePath + "\" with relative path \"" + relPath + "\"");
+			return basePath._value.TrimEnd('/') + '/' + relPath.TrimStart('/');
 		}
 
 		public class URLConverter : TypeConverter {

@@ -11,7 +11,7 @@ namespace Tests {
 		[Fact]
 		public void Add_Operator_Works_On_Non_Root_Base_Paths() {
 			URL basePath = "https://www.test.com/subdir/";
-			Assert.Equal("https://www.test.com/subdir/rel", basePath + "rel");
+			Assert.Equal("https://www.test.com/subdir/rel", basePath + "/rel");
 		}
 	}
 }
