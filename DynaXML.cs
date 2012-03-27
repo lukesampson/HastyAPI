@@ -18,9 +18,6 @@ namespace HastyAPI {
 			var root = xml.Root;
 			AddElement(root, result);
 
-			Func<string> tostring = () => DynamicToString(result);
-			((dynamic)result).ToString = tostring;
-
 			return result;
 		}
 
@@ -61,10 +58,6 @@ namespace HastyAPI {
 					var valName = Char.IsUpper(name[0]) ? "Text" : "text"; // mimic case
 					obj[valName] = el.Value;
 				}
-
-				Func<string> tostring = () => DynamicToString(obj);
-				((dynamic)obj).ToString = tostring;
-
 			} else { // simple value
 				if(addToList) {
 					list.Add(el.Value);
@@ -74,51 +67,6 @@ namespace HastyAPI {
 			}
 			
 		}
-
-		#region ToString
-		private static string Indent(int nestlevel) {
-			return new string(' ', 4 * nestlevel);;
-		}
-
-		private static string DynamicToString(IDictionary<string, object> obj, int nestlevel = 0) {
-			var indent = Indent(nestlevel);
-
-			var str = "";
-			var i = 0;
-			foreach(var pair in obj) {
-				// ignore functions
-				if(typeof(MulticastDelegate).IsAssignableFrom(pair.Value.GetType())) continue;
-
-				if(i > 0) str += ",\r\n";
-
-				str += indent + pair.Key + " = ";
-				var list = pair.Value as IList<dynamic>;
-				var dic = pair.Value as IDictionary<string, object>;
-
-				if(list != null) {
-					str += "[";
-					for(var j = 0; j < list.Count; j++) {
-						if(j > 0) str += ",";
-						str += "\r\n" + Indent(nestlevel + 1);
-						var subdic = list[j] as IDictionary<string, object>;
-						if(subdic != null) {
-							str += "{\r\n" + DynamicToString(subdic, nestlevel + 2) + "\r\n" + Indent(nestlevel + 1) + "}";
-						} else {
-							str += "\"" + list[j] + "\"";
-						}
-					}
-					str += "\r\n" + indent + "]";
-				} else if(dic != null) {
-					str += "{\r\n" + DynamicToString(dic, nestlevel + 1) + "\r\n" + indent + "}";
-				} else {
-					str += "\"" + pair.Value.ToString() + "\"";
-				}
-				i++;
-			}
-
-			return str;
-		}
-		#endregion
 	}
 
 }

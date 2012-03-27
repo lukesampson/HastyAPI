@@ -23,6 +23,88 @@ namespace HastyAPI {
 			return true;
 		}
 
+		public override string ToString() {
+			return DynamicToString(this, 0);
+		}
+
+		private static string DynamicToString(FriendlyDynamic dyn, int level) {
+			var canCompact = level < 2 && CanCompact(dyn);
+
+			var str = "{";
+			str += canCompact ? " " : "\r\n";
+
+			var i = 0;
+			foreach(var pair in dyn._dictionary) {
+				str += PairToString(pair, level + 1, canCompact);
+				if(i < dyn._dictionary.Count - 1) str += "," + (canCompact ? " " : "");
+				str += canCompact ? "" : "\r\n";
+				i++;
+			}
+
+			str += (canCompact ? " " : Indent(level)) + "}";
+			return str;
+		}
+
+		private static string PairToString(KeyValuePair<string, object> pair, int level, bool canCompact) {
+			var str = canCompact ? "" : Indent(level);
+			str += "\"" + pair.Key + "\": " + ObjectToString(pair.Value, level);
+			return str;
+		}
+
+		private static string ObjectToString(object obj, int level) {
+			if(obj is IList<object>) {
+				return ListToString(obj as IList<object>, level);
+			} else if(obj is FriendlyDynamic) {
+				return DynamicToString(obj as FriendlyDynamic, level);
+			} else if(obj is string) {
+				return "\"" + obj + "\"";
+			} else if(obj is bool) {
+				return obj.ToString().ToLower();
+			} else return obj.ToString();
+		}
+
+		private static string ListToString(IList<object> list, int level) {
+			var canCompact = CanCompact(list);
+
+			var str = "[";
+			str += canCompact ? "" : "\r\n";
+
+			var i = 0;
+			foreach(var obj in list) {
+				str += (canCompact ? (i == 0 ? "" : " ") : Indent(level + 1)) + ObjectToString(obj, level + 1);
+				if(i < list.Count - 1) str += ",";
+				str += canCompact ? "" : "\r\n";
+				i++;
+			}
+			str += (canCompact ? "" : Indent(level)) + "]";
+			return str;
+		}
+
+		private static bool CanCompact(FriendlyDynamic dyn) {
+			if(dyn._dictionary.Count > 5) return false;
+			foreach(var pair in dyn._dictionary) {
+				if(!CanCompact(pair.Value)) return false;
+			}
+			return true;
+		}
+
+		private static bool CanCompact(object obj) {
+			if(obj is List<object>) return false;
+			if(obj is FriendlyDynamic) return false;
+			return true;
+		}
+
+		private static bool CanCompact(IList<object> list) {
+			foreach(var obj in list) {
+				if(!CanCompact(obj)) return false;
+			}
+			return true;
+		}
+
+		private static string Indent(int level) {
+			return new string(' ', level * 4);
+		}
+
 		#region IDictionary<TKey, TValue> implementation
 		void IDictionary<string, object>.Add(string key, object value) {
 			_dictionary.Add(key, value);

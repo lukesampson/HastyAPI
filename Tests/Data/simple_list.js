@@ -1,6 +1,6 @@
 ﻿{
-	list: [
-		{ item: "one" },
-		{ item: "two" }
-	]
+    "list": [
+        { "item": "one" },
+        { "item": "two" }
+    ]
 }

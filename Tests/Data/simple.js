@@ -1,4 +1,1 @@
-﻿{
-	simple: "one",
-	number: 42
-}
+﻿{ "simple": "one", "number": 42 }

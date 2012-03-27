@@ -43,12 +43,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\list_of_primitives.js" />
     <Compile Include="DynaJSONFacts.cs" />
     <Compile Include="DynaXMLFacts.cs" />
     <Compile Include="Examples.cs" />
     <Compile Include="FriendlyDynamicFacts.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared.cs" />
     <Compile Include="URLFacts.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,11 +10,6 @@ using System.Collections;
 namespace Tests {
 	public class DynaJSONFacts {
 
-		public static dynamic GetJSON(string name) {
-			var path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\Data\" + name + ".js");
-			return DynaJSON.Parse(File.ReadAllText(path));
-		}
-
 		[Fact]
 		public void Parse_Returns_Not_Null() {
 			var json = DynaJSON.Parse("{ test: 1 }");
@@ -30,7 +25,7 @@ namespace Tests {
 
 		[Fact]
 		public void Simple_Multiple_Values_Correct() {
-			var json = GetJSON("simple");
+			var json = Shared.GetJSON("simple");
 
 			Assert.Equal("one", json.simple);
 			Assert.Equal(42, json.number);
@@ -38,7 +33,7 @@ namespace Tests {
 
 		[Fact]
 		public void Simple_List_Correct() {
-			var json = GetJSON("simple_list");
+			var json = Shared.GetJSON("simple_list");
 
 			Assert.IsAssignableFrom<IList>(json.list);
 
@@ -47,7 +42,7 @@ namespace Tests {
 
 		[Fact]
 		public void Simple_Nested_Correct() {
-			var json = GetJSON("simple_nested");
+			var json = Shared.GetJSON("simple_nested");
 
 			Assert.Equal("one", json.@base.example);
 			Assert.True(json.@base.sub.this_one_nested);
@@ -55,7 +50,7 @@ namespace Tests {
 
 		[Fact]
 		public void Hypens_In_Names_Converted_To_Underscores() {
-			var json = GetJSON("with_hyphens");
+			var json = Shared.GetJSON("with_hyphens");
 
 			Assert.Equal("1", json.message_count);
 		}
