@@ -65,6 +65,7 @@
     <Content Include="Data\simple.js" />
     <Content Include="Data\simple_list.js" />
     <Content Include="Data\simple_nested.js" />
+    <Content Include="Data\with_hyphens.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -18,7 +18,7 @@ namespace HastyAPI {
 		private static dynamic GetObject(Dictionary<string, object> dic) {
 			var obj = new ExpandoObject() as IDictionary<string, object>;
 			foreach(var pair in dic) {
-				obj.Add(pair.Key, GetValue(pair.Value));
+				obj.Add(pair.Key.Replace('-', '_'), GetValue(pair.Value));
 			}
 			return obj;
 		}
