@@ -47,6 +47,7 @@
     <Compile Include="DynaJSON.cs" />
     <Compile Include="Dynamic.cs" />
     <Compile Include="DynaXML.cs" />
+    <Compile Include="FriendlyDynamic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="URL.cs" />

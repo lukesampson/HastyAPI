@@ -13,7 +13,7 @@ namespace HastyAPI {
 		}
 
 		public static dynamic Parse(XDocument xml) {
-			var result = new ExpandoObject() as IDictionary<string, object>;
+			var result = new FriendlyDynamic() as IDictionary<string, object>;
 
 			var root = xml.Root;
 			AddElement(root, result);
@@ -41,7 +41,7 @@ namespace HastyAPI {
 			}
 
 			if(el.HasElements || el.HasAttributes) { // complex object
-				var obj = new ExpandoObject() as IDictionary<string, object>;
+				var obj = new FriendlyDynamic() as IDictionary<string, object>;
 
 				if(addToList) {
 					list.Add(obj);

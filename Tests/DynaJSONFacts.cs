@@ -53,6 +53,7 @@ namespace Tests {
 			Assert.True(json.@base.sub.this_one_nested);
 		}
 
+		[Fact]
 		public void Hypens_In_Names_Converted_To_Underscores() {
 			var json = GetJSON("with_hyphens");
 

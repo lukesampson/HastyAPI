@@ -47,7 +47,7 @@ namespace Tests {
 			var o = GetXML("dummy_lists").ToDynamic();
 
 			Assert.Equal(2, o.lists.simple.item.Count);
-			Assert.Throws<Microsoft.CSharp.RuntimeBinder.RuntimeBinderException>(() => o.lists.simple.text);
+			Assert.Null(o.lists.simple.text);
 			Assert.Equal("one", o.lists.simple.item[0]);
 			Assert.Equal("two", o.lists.simple.item[1]);
 		}
