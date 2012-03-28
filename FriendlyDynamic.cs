@@ -24,11 +24,11 @@ namespace HastyAPI {
 		}
 
 		public override string ToString() {
-			return DynamicToString(this, 0);
+			return DynamicToString(this, 0, false);
 		}
 
-		private static string DynamicToString(FriendlyDynamic dyn, int level) {
-			var canCompact = level < 2 && CanCompact(dyn);
+		private static string DynamicToString(FriendlyDynamic dyn, int level, bool insideList) {
+			var canCompact = (level < 2 || insideList) && CanCompact(dyn);
 
 			var str = "{";
 			str += canCompact ? " " : "\r\n";
@@ -47,15 +47,15 @@ namespace HastyAPI {
 
 		private static string PairToString(KeyValuePair<string, object> pair, int level, bool canCompact) {
 			var str = canCompact ? "" : Indent(level);
-			str += "\"" + pair.Key + "\": " + ObjectToString(pair.Value, level);
+			str += "\"" + pair.Key + "\": " + ObjectToString(pair.Value, level, false);
 			return str;
 		}
 
-		private static string ObjectToString(object obj, int level) {
+		private static string ObjectToString(object obj, int level, bool insideList) {
 			if(obj is IList<object>) {
 				return ListToString(obj as IList<object>, level);
 			} else if(obj is FriendlyDynamic) {
-				return DynamicToString(obj as FriendlyDynamic, level);
+				return DynamicToString(obj as FriendlyDynamic, level, insideList);
 			} else if(obj is string) {
 				return "\"" + obj + "\"";
 			} else if(obj is bool) {
@@ -71,7 +71,7 @@ namespace HastyAPI {
 
 			var i = 0;
 			foreach(var obj in list) {
-				str += (canCompact ? (i == 0 ? "" : " ") : Indent(level + 1)) + ObjectToString(obj, level + 1);
+				str += (canCompact ? (i == 0 ? "" : " ") : Indent(level + 1)) + ObjectToString(obj, level + 1, true);
 				if(i < list.Count - 1) str += ",";
 				str += canCompact ? "" : "\r\n";
 				i++;
