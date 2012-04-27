@@ -60,6 +60,8 @@ namespace Tests {
 			var json = DynaJSON.Parse("[ { item: 1 }, { item: 2 } ]");
 
 			Assert.Equal(2, json.Count);
+			Assert.Equal(1, json[0].item);
+			Assert.Equal(2, json[1].item);
 		}
 
 		[Fact]
