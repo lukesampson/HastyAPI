@@ -54,5 +54,19 @@ namespace Tests {
 
 			Assert.Equal("1", json.message_count);
 		}
+
+		[Fact]
+		public void Array_Of_Objects() {
+			var json = DynaJSON.Parse("[ { item: 1 }, { item: 2 } ]");
+
+			Assert.Equal(2, json.Count);
+		}
+
+		[Fact]
+		public void Empty_String() {
+			var json = DynaJSON.Parse("");
+
+			Assert.Equal("", json);
+		}
 	}
 }
