@@ -8,7 +8,7 @@ using System.Dynamic;
 namespace HastyAPI {
 	public class DynaJSON {
 		public static dynamic Parse(string text) {
-			var js = new JavaScriptSerializer().DeserializeObject(text);
+            var js = Newtonsoft.Json.JsonConvert.DeserializeObject(text);
 			return GetValue(js) ?? text;
 		}
 
