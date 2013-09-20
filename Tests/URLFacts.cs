@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HastyAPI;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests {
+    [TestClass]
 	public class URLFacts {
 
-		[Fact]
+		[TestMethod]
 		public void Add_Operator_Works_On_Non_Root_Base_Paths() {
 			URL basePath = "https://www.test.com/subdir/";
-			Assert.Equal("https://www.test.com/subdir/rel", basePath + "/rel");
+			Assert.AreEqual("https://www.test.com/subdir/rel", basePath + "/rel");
 		}
 	}
 }
