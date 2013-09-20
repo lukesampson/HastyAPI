@@ -3,72 +3,74 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using Xunit;
 using HastyAPI;
 using System.Collections;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests {
+    [TestClass]
 	public class DynaJSONFacts {
 
-		[Fact]
+		[TestMethod]
 		public void Parse_Returns_Not_Null() {
 			var json = DynaJSON.Parse("{ test: 1 }");
-			Assert.NotNull(json);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(json);
 		}
 
-		[Fact]
+        [TestMethod]
 		public void Simple_Number_Correct() {
 			var json = DynaJSON.Parse("{ test: 1 }");
 
-			Assert.Equal(1, json.test);
+			Assert.AreEqual(1, json.test);
 		}
 
-		[Fact]
+        [TestMethod]
 		public void Simple_Multiple_Values_Correct() {
 			var json = Shared.GetJSON("simple");
 
-			Assert.Equal("one", json.simple);
-			Assert.Equal(42, json.number);
+            Assert.AreEqual("one", json.simple);
+            Assert.AreEqual(42, json.number);
 		}
 
-		[Fact]
+        [TestMethod]
 		public void Simple_List_Correct() {
 			var json = Shared.GetJSON("simple_list");
 
-			Assert.IsAssignableFrom<IList>(json.list);
+            Assert.IsInstanceOfType(json.list, typeof(IList));
+			//Assert.IsAssignableFrom<IList>(json.list);
 
-			Assert.Equal(2, json.list.Count);
+            Assert.AreEqual(2, json.list.Count);
 		}
 
-		[Fact]
+        [TestMethod]
 		public void Simple_Nested_Correct() {
 			var json = Shared.GetJSON("simple_nested");
 
-			Assert.Equal("one", json.@base.example);
-			Assert.True(json.@base.sub.this_one_nested);
+            Assert.AreEqual("one", json.@base.example);
+			Assert.IsTrue(json.@base.sub.this_one_nested);
 		}
 
-		[Fact]
+        [TestMethod]
 		public void Hypens_In_Names_Converted_To_Underscores() {
 			var json = Shared.GetJSON("with_hyphens");
 
-			Assert.Equal("1", json.message_count);
+            Assert.AreEqual("1", json.message_count);
 		}
 
-		[Fact]
+        [TestMethod]
 		public void Array_Of_Objects() {
 			var json = DynaJSON.Parse("[ { item: 1 }, { item: 2 } ]");
 
-			Assert.Equal(2, json.Count);
-			Assert.Equal(1, json[0].item);
-			Assert.Equal(2, json[1].item);
+            Assert.AreEqual(2, json.Count);
+            Assert.AreEqual(1, json[0].item);
+            Assert.AreEqual(2, json[1].item);
 		}
 
-		[Fact]
+        [TestMethod]
 		public void Empty_String() {
 			var json = DynaJSON.Parse("");
 
-			Assert.Equal("", json);
+            Assert.AreEqual("", json);
 		}
 	}
 }
