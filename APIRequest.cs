@@ -12,6 +12,7 @@ namespace HastyAPI {
     public class APIRequest {
         private string _url;
         private object _headers;
+		private string _agent;
         private string _data;
         private NetworkCredential _credentials;
         private Encoding _encoding = Encoding.UTF8;
@@ -62,6 +63,11 @@ namespace HastyAPI {
             return this;
         }
 
+		public APIRequest WithUserAgent(string agent) {
+			_agent = agent;
+			return this;
+		}
+
         public APIResponse Post() {
             return Send("POST");
         }
@@ -80,13 +86,22 @@ namespace HastyAPI {
 			if(_data != null) {
 				if(method.Equals("GET", StringComparison.OrdinalIgnoreCase)) {
 					req = (HttpWebRequest)WebRequest.Create(_url + "?" + _data);
-					req.WithCredentials(_credentials).WithHeaders(_headers).Method = method;
+					req.WithCredentials(_credentials)
+						.WithHeaders(_headers).Method = method;
+
+					if(_agent != null) {
+						req.WithUserAgent(_agent);
+					}
 
 					// note: don't send content type for get
 
 				} else {
 					req = (HttpWebRequest)WebRequest.Create(_url);
 					req.WithCredentials(_credentials).WithHeaders(_headers).Method = method;
+
+					if(_agent != null) {
+						req.WithUserAgent(_agent);
+					}
 
 					req.ContentType = _contentType;
 
@@ -103,6 +118,10 @@ namespace HastyAPI {
 					req.ContentLength = 0;
 				}
 				req.WithCredentials(_credentials).WithHeaders(_headers).Method = method;
+
+				if(_agent != null) {
+					req.WithUserAgent(_agent);
+				}
 			}
 
 			HttpWebResponse response;

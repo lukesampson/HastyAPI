@@ -25,6 +25,11 @@ namespace HastyAPI {
 			return request;
 		}
 
+		public static HttpWebRequest WithUserAgent(this HttpWebRequest request, string agent) {
+			request.UserAgent = agent;
+			return request;
+		}
+
 		public static HttpWebRequest WithHeaders(this HttpWebRequest request, object headers) {
 			if(headers != null) {
 				foreach(var pair in headers.AsDictionary()) {

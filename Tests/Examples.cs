@@ -42,5 +42,12 @@ namespace Tests {
 
 			Console.WriteLine(clicks);
 		}
+
+		public void With_User_Agent() {
+			var req = new APIRequest($"https://en.wikipedia.org/w/index.php?action=raw&title=pizza")
+				.WithUserAgent("HastyAPI/1.0 Example");
+
+			var res = req.Get();
+		}
 	}
 }
