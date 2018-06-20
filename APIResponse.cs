@@ -11,11 +11,13 @@ namespace HastyAPI {
 		public int StatusCode { get; private set; }
 		public string ContentType { get; private set; }
 		public string Text { get; private set; }
+		public CookieCollection Cookies { get; private set; }
 
-		public APIResponse(WebHeaderCollection headers, int statusCode, string contentType, string text) {
+		public APIResponse(WebHeaderCollection headers, int statusCode, string contentType, string text, CookieCollection cookies) {
 			Headers = headers;
 			StatusCode = statusCode;
 			Text = text;
+			Cookies = cookies;
 		}
 
 		public APIResponse EnsureStatus(int status) {

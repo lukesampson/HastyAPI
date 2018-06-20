@@ -17,6 +17,8 @@ namespace HastyAPI {
         private NetworkCredential _credentials;
         private Encoding _encoding = Encoding.UTF8;
         private string _contentType;
+		private CookieCollection _cookies;
+		private bool _autoRedirect = true;
 
         public APIRequest(string url) {
             _url = url;
@@ -68,6 +70,20 @@ namespace HastyAPI {
 			return this;
 		}
 
+		public APIRequest WithCookies(CookieCollection cookies) {
+			if(_cookies == null) {
+				_cookies = cookies;
+			} else {
+				_cookies.Add(cookies);
+			}
+			return this;
+		}
+
+		public APIRequest NoAutoRedirect() {
+			_autoRedirect = false;
+			return this;
+		}
+
         public APIResponse Post() {
             return Send("POST");
         }
@@ -86,22 +102,13 @@ namespace HastyAPI {
 			if(_data != null) {
 				if(method.Equals("GET", StringComparison.OrdinalIgnoreCase)) {
 					req = (HttpWebRequest)WebRequest.Create(_url + "?" + _data);
-					req.WithCredentials(_credentials)
-						.WithHeaders(_headers).Method = method;
 
-					if(_agent != null) {
-						req.WithUserAgent(_agent);
-					}
-
+					SetCommon(req, method);
 					// note: don't send content type for get
 
 				} else {
 					req = (HttpWebRequest)WebRequest.Create(_url);
-					req.WithCredentials(_credentials).WithHeaders(_headers).Method = method;
-
-					if(_agent != null) {
-						req.WithUserAgent(_agent);
-					}
+					SetCommon(req, method);
 
 					req.ContentType = _contentType;
 
@@ -117,11 +124,7 @@ namespace HastyAPI {
 				if(method.Equals("POST", StringComparison.OrdinalIgnoreCase)) {
 					req.ContentLength = 0;
 				}
-				req.WithCredentials(_credentials).WithHeaders(_headers).Method = method;
-
-				if(_agent != null) {
-					req.WithUserAgent(_agent);
-				}
+				SetCommon(req, method);
 			}
 
 			HttpWebResponse response;
@@ -137,6 +140,22 @@ namespace HastyAPI {
 			}
 
 			return response.ToAPIResponse();
+		}
+
+		void SetCommon(HttpWebRequest req, string method) {
+			req.WithCredentials(_credentials)
+				.WithHeaders(_headers).Method = method;
+
+			req.AllowAutoRedirect = _autoRedirect;
+
+			req.CookieContainer = new CookieContainer();
+			if(_cookies != null) {
+				req.CookieContainer.Add(_cookies);
+			}
+
+			if(_agent != null) {
+				req.WithUserAgent(_agent);
+			}
 		}
 
         static HashSet<string> forceAcceptHosts = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
