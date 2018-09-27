@@ -48,7 +48,7 @@ namespace HastyAPI {
 				vardic = new Dictionary<string, string>();
 				foreach(var prop in obj.GetType().GetProperties()) {
 					var value = prop.GetValue(obj, null);
-					vardic.Add(prop.Name, value.ToString());
+					vardic.Add(prop.Name, value?.ToString());
 				}
 			}
 			return vardic;
