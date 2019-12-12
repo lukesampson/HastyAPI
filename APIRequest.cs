@@ -132,7 +132,7 @@ namespace HastyAPI {
 				response = (HttpWebResponse)req.GetResponse();
 			} catch(WebException e) {
 				if(e.Status == WebExceptionStatus.ConnectFailure) {
-					throw new Exception("Couldn't connect to " + req.RequestUri.GetLeftPart(UriPartial.Authority));
+					throw new Exception("Couldn't connect to " + req.RequestUri.GetLeftPart(UriPartial.Authority), e);
                 } else if(e.Status == WebExceptionStatus.TrustFailure) {
                     throw new Exception("Bad SSL certificate for " + req.RequestUri.GetLeftPart(UriPartial.Authority), e);
                 }
